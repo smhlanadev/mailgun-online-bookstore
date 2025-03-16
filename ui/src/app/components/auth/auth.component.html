@@ -22,7 +22,7 @@
       Password is required
     </div>
     
-    <button type="submit" [disabled]="authForm.invalid">Login</button>
+    <button type="submit" [disabled]="authForm.invalid">{{ authMode === AuthMode.Login ? "Login" : "Register" }}</button>
   </form>
 
   <div *ngIf="authMode === AuthMode.Login" class="auth-switch">

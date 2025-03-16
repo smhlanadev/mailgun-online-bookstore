@@ -5,6 +5,6 @@ import { StoreComponent } from './components/store/store.component';
 export const routes: Routes = [
     { path: 'auth', component: AuthComponent },
     { path: 'store', component: StoreComponent },
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: '**', redirectTo: '/login' }
+    { path: '', redirectTo: '/auth', pathMatch: 'full' },
+    { path: '**', redirectTo: '/auth' }
 ];

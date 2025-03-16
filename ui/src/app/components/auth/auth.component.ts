@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +15,7 @@ export class AuthComponent implements OnInit {
   AuthMode = AuthMode;
   authMode: AuthMode = AuthMode.Login;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute, private userService: UserService) {
     this.authForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -22,17 +23,19 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.updateValidators();
+  }
 
   onSubmit() {
-    if (this.authForm?.valid) {
-      const { email, password } = this.authForm.value;
-      
-      if (email === 'user@g.com' && password === 'password') {
-        this.router.navigate(['/main']);
-      } else {
-        alert('Invalid credentials');
-      }
+    if (!this.authForm?.valid) return;
+
+    const { name, email, password } = this.authForm.value;
+
+    if (this.userService.login(email, password)) {
+      this.router.navigate(['/store']);
+    } else {
+      alert('Invalid credentials');
     }
   }
 
@@ -50,8 +53,8 @@ export class AuthComponent implements OnInit {
 
   updateValidators() {
     this.authForm.clearValidators();
-    this.authForm.get('name')?.clearValidators();
     this.authForm.reset();
+    if (this.authMode === AuthMode.Login) this.authForm.get('name')?.clearValidators();
   }
 }
 
