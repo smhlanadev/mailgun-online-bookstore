@@ -1,7 +1,7 @@
 
 export enum EmailType {
   Registration = 'Registration',
-  FirstTimeLogin = 'firstTimeLogin',
+  FirstTimeLogin = 'FirstTimeLogin',
   Subscription = 'Subscription',
   Purchase = 'Purchase'
 }
