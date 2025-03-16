@@ -44,3 +44,18 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.auth-switch {
+  padding: 1rem;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: red;
+  margin-top: 0.1rem;
+  font-size: small;
+}
