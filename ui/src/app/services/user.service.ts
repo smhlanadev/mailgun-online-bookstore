@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { userCredentials, users } from '../data/user.data';
 import { UserCredentials } from '../models/user-credentials.model';
+import { NotificationService } from './notification.service';
+import { EmailType } from '../models/email-type';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,9 @@ import { UserCredentials } from '../models/user-credentials.model';
 export class UserService {
   users: User[] = [];
   userCredentials: UserCredentials[] = [];
+  EmailType = EmailType;
 
-  constructor() {
+  constructor(private notificationService: NotificationService) {
     this.users = users;
     this.userCredentials = userCredentials;
   }
@@ -30,6 +33,6 @@ export class UserService {
     users.push(user);
     userCredentials.push({ email: user.email, password });
 
-    alert('Send email notification to ' + user.email);
+    this.notificationService.send(user.email, EmailType.Registration);
   }
 }

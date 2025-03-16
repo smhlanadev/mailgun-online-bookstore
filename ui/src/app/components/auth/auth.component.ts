@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AuthMode } from '../../models/auth-mode';
 
 @Component({
   selector: 'app-auth',
@@ -76,7 +77,3 @@ export class AuthComponent implements OnInit {
   }
 }
 
-export enum AuthMode {
-  Login = 'Login',
-  Register = 'Register'
-} 
