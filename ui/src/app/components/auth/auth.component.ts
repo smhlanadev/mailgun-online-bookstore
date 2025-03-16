@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
 
   constructor(private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute, private userService: UserService, private snackBar: MatSnackBar) {
     this.authForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
@@ -46,19 +46,20 @@ export class AuthComponent implements OnInit {
   switchAuthMode(event?: Event) {
     event?.preventDefault();
     this.authMode = this.authMode === AuthMode.Login ? AuthMode.Register : AuthMode.Login;
+    this.updateValidators();
 
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { mode: this.authMode.toLocaleLowerCase() },
       queryParamsHandling: 'merge'
     });
-    this.updateValidators();
   }
 
   updateValidators() {
-    this.authForm.clearValidators();
     this.authForm.reset();
     if (this.authMode === AuthMode.Login) this.authForm.get('name')?.clearValidators();
+    else this.authForm.get('name')?.setValidators(Validators.required);
+    this.authForm.get('name')?.updateValueAndValidity();
   }
 
   login(email: string, password: string) {

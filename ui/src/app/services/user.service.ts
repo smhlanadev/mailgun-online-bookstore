@@ -16,7 +16,7 @@ export class UserService {
   }
 
   login(email: string, password: string): boolean {
-    return true;
+    return !!(this.userCredentials.find(uc => uc.email === email && uc.password === password));
   }
 
   register(user: User, password: string): void {
