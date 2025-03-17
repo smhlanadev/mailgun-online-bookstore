@@ -1,11 +1,20 @@
 import { Component } from '@angular/core';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { BookService } from '../../services/book.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-store',
-  imports: [],
+  imports: [MatGridListModule, CommonModule],
   templateUrl: './store.component.html',
   styleUrl: './store.component.scss'
 })
 export class StoreComponent {
+  books: any = [];
+
+  constructor(private bookService: BookService) {
+    this.books = this.bookService.getBooks();
+  }
+
 
 }

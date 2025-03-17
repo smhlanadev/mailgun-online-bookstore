@@ -1,1 +1,10 @@
-<p>store works!</p>
+<mat-grid-list cols="4" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let book of books">
+    <div class="book-details">
+      <h3>{{ book.title }}</h3>
+      <p>{{ book.author }}</p>
+      <p>ISBN: {{ book.isbn }}</p>
+      <p>{{ book.price | currency }}</p>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

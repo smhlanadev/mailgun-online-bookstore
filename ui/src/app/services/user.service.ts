@@ -3,7 +3,7 @@ import { User } from '../models/user.model';
 import { userCredentials, users } from '../data/user.data';
 import { UserCredentials } from '../models/user-credentials.model';
 import { NotificationService } from './notification.service';
-import { EmailType } from '../models/email-type';
+import { EmailType } from '../models/email-type.enum';
 
 @Injectable({
   providedIn: 'root'

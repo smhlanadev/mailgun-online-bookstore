@@ -1,4 +1,4 @@
-import { EmailType } from "../services/notification.service";
+import { EmailType } from "./email-type.enum";
 
 export interface EmailData {
     emailTo: string;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EmailType } from '../models/email-type';
+import { EmailType } from '../models/email-type.enum';
 
 @Injectable({
   providedIn: 'root'
