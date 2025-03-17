@@ -12,7 +12,7 @@
             <p>ISBN: {{ book.isbn }}<span class="spacer"></span><span class="price">{{ book.price | currency }}</span></p>
         </mat-card-content>
         <mat-card-footer>
-            <button>Buy</button>
+            <button type="button" (click)="onBuy(book)">Buy</button>
         </mat-card-footer>
     </mat-card>
   </mat-grid-tile>
