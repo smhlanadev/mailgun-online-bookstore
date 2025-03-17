@@ -9,7 +9,7 @@
             </mat-card-title-group>
         </mat-card-header>
         <mat-card-content>
-            <p>ISBN: {{ book.isbn }}<span>{{ book.price | currency }}</span></p>
+            <p>ISBN: {{ book.isbn }}<span class="spacer"></span><span class="price">{{ book.price | currency }}</span></p>
         </mat-card-content>
         <mat-card-footer>
             <button>Buy</button>
