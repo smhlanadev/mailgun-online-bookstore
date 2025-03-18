@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { NotificationService } from '../../services/notification.service';
 import { EmailType } from '../../models/email-type.enum';
 import { MatDialogRef } from '@angular/material/dialog';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-purchase-modal',
@@ -17,7 +18,8 @@ export class PurchaseModalComponent {
   constructor(
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
-    public dialogRef: MatDialogRef<PurchaseModalComponent>
+    public dialogRef: MatDialogRef<PurchaseModalComponent>,
+    private userService: UserService
   ) {
     this.purchaseForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -28,7 +30,7 @@ export class PurchaseModalComponent {
   }
 
   onSubmit() {
-    this.notificationService.send('email-address', EmailType.Purchase);
+    this.notificationService.send(this.userService.currentUser?.email || '', EmailType.Purchase);
     this.dialogRef.close(true);
   }
 

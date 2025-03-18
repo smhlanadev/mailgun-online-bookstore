@@ -12,6 +12,7 @@ export class UserService {
   users: User[] = [];
   userCredentials: UserCredentials[] = [];
   EmailType = EmailType;
+  currentUser: User | undefined = undefined;
 
   constructor(private notificationService: NotificationService) {
     this.users = users;
@@ -19,7 +20,11 @@ export class UserService {
   }
 
   login(email: string, password: string): boolean {
-    return !!(this.userCredentials.find(uc => uc.email === email && uc.password === password));
+    if (!this.userCredentials.find(uc => uc.email === email && uc.password === password)) return false;
+    
+    this.currentUser = this.users.find(u => u.email === email);
+    if (!this.currentUser) return false;
+    return true;
   }
 
   register(user: User, password: string): void {

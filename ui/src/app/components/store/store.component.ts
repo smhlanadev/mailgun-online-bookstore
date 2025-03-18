@@ -9,6 +9,7 @@ import { PurchaseModalComponent } from '../purchase-modal/purchase-modal.compone
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationService } from '../../services/notification.service';
 import { EmailType } from '../../models/email-type.enum';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-store',
@@ -19,7 +20,13 @@ import { EmailType } from '../../models/email-type.enum';
 export class StoreComponent {
   books: Book[] = [];
 
-  constructor(private bookService: BookService, private dialog: MatDialog, private snackBar: MatSnackBar, private notificationService: NotificationService) {
+  constructor(
+    private bookService: BookService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private notificationService: NotificationService,
+    private userService: UserService
+  ) {
     this.books = this.bookService.getBooks();
   }
 
@@ -39,7 +46,7 @@ export class StoreComponent {
 
   onSubscribe(event?: Event) {
     event?.preventDefault();
-    this.notificationService.send('email-address', EmailType.Subscription);
+    this.notificationService.send(this.userService.currentUser?.email || '', EmailType.Subscription);
     this.snackBar.open('Subscribed to newsletter!', 'Close', { duration: 3000 });
   }
 }
