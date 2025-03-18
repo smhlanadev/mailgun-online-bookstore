@@ -13,10 +13,16 @@
             Card number is required
         </div>
     
-        <label for="password">CVV:</label>
+        <label for="cvv">CVV:</label>
         <input type="cvv" id="cvv" formControlName="cvv" required>
         <div *ngIf="purchaseForm.get('cvv')?.invalid && purchaseForm.get('cvv')?.touched" class="error">
             CVV is required
+        </div>
+
+        <label for="expiryDate">Expiry date:</label>
+        <input type="expiryDate" id="expiryDate" formControlName="expiryDate" required>
+        <div *ngIf="purchaseForm.get('expiryDate')?.invalid && purchaseForm.get('expiryDate')?.touched" class="error">
+            Expiry date is required
         </div>
     
         <div class="button-container">

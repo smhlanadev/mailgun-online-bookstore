@@ -29,9 +29,10 @@ export class PurchaseModalComponent {
 
   onSubmit() {
     this.notificationService.send('email-address', EmailType.Purchase);
+    this.dialogRef.close(true);
   }
 
   onCancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }
