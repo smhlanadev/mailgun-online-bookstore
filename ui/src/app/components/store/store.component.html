@@ -1,3 +1,8 @@
+<div class="store-top-container">
+  <p>Welcome to <b>pickAbook</b>. Here you can browse and purchase books.</p>
+  <p>Love books? Stay updated with our weekly picks! <a href="#" class="subscribe-link" (click)="onSubscribe($event)">Subscribe Now</a>.</p>
+</div>
+
 <mat-grid-list cols="4" rowHeight="2:1">
   <mat-grid-tile *ngFor="let book of books">
     <mat-card>

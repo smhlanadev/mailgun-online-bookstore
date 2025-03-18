@@ -35,3 +35,10 @@ mat-card {
 .price {
     font-weight: bold;
 }
+
+.store-top-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}

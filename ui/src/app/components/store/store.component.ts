@@ -7,6 +7,8 @@ import { Book } from '../../models/book.model';
 import { MatDialog } from '@angular/material/dialog';
 import { PurchaseModalComponent } from '../purchase-modal/purchase-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationService } from '../../services/notification.service';
+import { EmailType } from '../../models/email-type.enum';
 
 @Component({
   selector: 'app-store',
@@ -17,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class StoreComponent {
   books: Book[] = [];
 
-  constructor(private bookService: BookService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private bookService: BookService, private dialog: MatDialog, private snackBar: MatSnackBar, private notificationService: NotificationService) {
     this.books = this.bookService.getBooks();
   }
 
@@ -33,5 +35,11 @@ export class StoreComponent {
     dialogRef.afterClosed().subscribe(result => {
       this.snackBar.open(result ? 'Purchase successful!' : 'Purchase cancelled', 'Close', { duration: 3000 });
     });
+  }
+
+  onSubscribe(event?: Event) {
+    event?.preventDefault();
+    this.notificationService.send('email-address', EmailType.Subscription);
+    this.snackBar.open('Subscribed to newsletter!', 'Close', { duration: 3000 });
   }
 }
