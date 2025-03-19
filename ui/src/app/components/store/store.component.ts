@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationService } from '../../services/notification.service';
 import { EmailType } from '../../models/email-type.enum';
 import { UserService } from '../../services/user.service';
+import { NotificationInput } from '../../models/notification-input.model';
 
 @Component({
   selector: 'app-store',
@@ -46,7 +47,14 @@ export class StoreComponent {
 
   onSubscribe(event?: Event) {
     event?.preventDefault();
-    this.notificationService.send(this.userService.currentUser?.email || '', EmailType.Subscription);
+
+    const input: NotificationInput = { 
+      emailTo: this.userService.currentUser?.email || '', 
+      emailType: EmailType.Subscription, 
+      name: this.userService.currentUser?.name || '' 
+    };
+
+    this.notificationService.send(input);
     this.snackBar.open('Subscribed to newsletter!', 'Close', { duration: 3000 });
   }
 }

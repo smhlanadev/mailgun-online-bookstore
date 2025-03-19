@@ -4,6 +4,7 @@ import { userCredentials, users } from '../data/user.data';
 import { UserCredentials } from '../models/user-credentials.model';
 import { NotificationService } from './notification.service';
 import { EmailType } from '../models/email-type.enum';
+import { NotificationInput } from '../models/notification-input.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,12 @@ export class UserService {
     users.push(user);
     userCredentials.push({ email: user.email, password });
 
-    this.notificationService.send(user.email, EmailType.Registration);
+    const input: NotificationInput = {
+      emailTo: user.email,
+      emailType: EmailType.Registration,
+      name: user.name
+    };
+
+    this.notificationService.send(input);
   }
 }

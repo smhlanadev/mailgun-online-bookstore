@@ -5,6 +5,7 @@ import { NotificationService } from '../../services/notification.service';
 import { EmailType } from '../../models/email-type.enum';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
+import { NotificationInput } from '../../models/notification-input.model';
 
 @Component({
   selector: 'app-purchase-modal',
@@ -30,7 +31,13 @@ export class PurchaseModalComponent {
   }
 
   onSubmit() {
-    this.notificationService.send(this.userService.currentUser?.email || '', EmailType.Purchase);
+    const input: NotificationInput = {
+      emailTo: this.userService.currentUser?.email || '',
+      emailType: EmailType.Purchase,
+      name: this.userService.currentUser?.name || ''
+    };
+    
+    this.notificationService.send(input);
     this.dialogRef.close(true);
   }
 

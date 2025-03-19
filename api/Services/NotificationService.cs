@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using api.Models;
+using API.Models;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -21,15 +22,34 @@ namespace API.Services
             };
 
             var client = new RestClient(options);
-            var request = new RestRequest("/sandbox12598a211a5548cbb3e9332eca6a3ce1.mailgun.org/messages", Method.Post);
-            request.AlwaysMultipartFormData = true;
-            request.AddParameter("from", "Mailgun Sandbox <postmaster@sandbox12598a211a5548cbb3e9332eca6a3ce1.mailgun.org>");
+            var request = new RestRequest("/sandbox12598a211a5548cbb3e9332eca6a3ce1.mailgun.org/messages", Method.Post)
+            {
+                AlwaysMultipartFormData = true
+            };
+            request.AddParameter("from", EmailParameters.FromAddress);
             request.AddParameter("to", $"{input.Name} <{input.EmailTo}>");
-            request.AddParameter("subject", $"Hello {input.Name}");
-            request.AddParameter("text", $"Congratulations {input.Name}, you just sent an email with Mailgun! You are truly awesome!");
+            AddTemplateParameters(request, input);
             var result = await client.ExecuteAsync(request);
 
             return result;
+        }
+
+        private static void AddTemplateParameters(RestRequest request, SendNotificationInput input)
+        {
+            switch(input.EmailType)
+            {
+                case EmailType.FirstTimeLogin:
+                    break;
+                case EmailType.Registration:
+                    break;
+                case EmailType.Subscription:
+                    request.AddParameter("subject", EmailParameters.SubscriptionSubject);
+                    request.AddParameter("template", EmailParameters.SubscriptionTemplate);
+                    request.AddParameter("h:X-Mailgun-Variables", $"{{\"name\": \"{input.Name}\"}}");
+                    break;
+                case EmailType.Purchase:
+                    break;
+            }
         }
     }
 }
