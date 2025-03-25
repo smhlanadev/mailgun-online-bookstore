@@ -54,7 +54,15 @@ export class StoreComponent {
       name: this.userService.currentUser?.name || '' 
     };
 
-    this.notificationService.send(input);
-    this.snackBar.open('Subscribed to newsletter!', 'Close', { duration: 3000 });
+    this.notificationService.send(input).subscribe({
+      next: () => {
+        this.snackBar.open('Subscribed to newsletter!', 'Close', { duration: 3000 });
+      },
+      error: error => {
+        console.error('Error sending notification', error);
+        this.snackBar.open('Something went wrong. Try again later.', 'Close', { duration: 3000 });
+      }
+    });
+    
   }
 }
