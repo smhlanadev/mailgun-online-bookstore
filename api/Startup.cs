@@ -1,11 +1,11 @@
 ﻿using API.Models;
 using API.Services;
-using Microsoft.Net.Http.Headers;
 
 namespace API
 {
     public class Startup
     {
+        private readonly string AllowSpecificOrigins = "_allowSpecificOrigins";
         internal static AppSettings AppSettings { get; private set; } = new AppSettings { ApiKey = string.Empty };
 
         public Startup(IConfiguration configuration)
@@ -28,12 +28,11 @@ namespace API
             services.AddCors(
                 options =>
                 {
-                    options.AddPolicy(name: "_allowEndpointOrigin",
+                    options.AddPolicy(name: AllowSpecificOrigins,
                         policy =>
                         {
                             policy
-                            .WithOrigins("http://localhost:4200/")
-                            .WithHeaders(HeaderNames.ContentType)
+                            .WithOrigins("http://localhost:4200")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                         }
@@ -50,11 +49,11 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("_allowEndpointOrigin");
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(AllowSpecificOrigins);
 
             app.UseAuthentication();
 
@@ -62,7 +61,7 @@ namespace API
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers()/*.RequireCors("CorsPolicy")*/;
+                endpoints.MapControllers();
             });
 
             app.UseSwagger();

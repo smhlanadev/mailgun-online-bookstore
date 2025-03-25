@@ -45,7 +45,13 @@ namespace API.Services
                 case EmailType.Subscription:
                     request.AddParameter("subject", EmailParameters.SubscriptionSubject);
                     request.AddParameter("template", EmailParameters.SubscriptionTemplate);
-                    request.AddParameter("h:X-Mailgun-Variables", $"{{\"name\": \"{input.Name}\"}}");
+                    var variables = new
+                    {
+                        name = input.Name,
+                        heading = EmailParameters.SubscriptionHeading,
+                        body = EmailParameters.SubscriptionBody
+                    };
+                    request.AddParameter("h:X-Mailgun-Variables", System.Text.Json.JsonSerializer.Serialize(variables));
                     break;
                 case EmailType.Purchase:
                     break;
