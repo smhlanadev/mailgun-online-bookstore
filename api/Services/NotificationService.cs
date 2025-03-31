@@ -40,36 +40,28 @@ namespace API.Services
             switch (input.EmailType)
             {
                 case EmailType.Registration:
-                    request.AddParameter("subject", EmailParameters.SubscriptionSubject);
-                    var variables = new
-                    {
-                        name = input.Name,
-                        heading = EmailParameters.WelcomeSubject,
-                        body = EmailParameters.WelcomeBody
-                    };
-                    request.AddParameter("h:X-Mailgun-Variables", System.Text.Json.JsonSerializer.Serialize(variables));
+                    SetRequestParameters(request, input, EmailParameters.WelcomeSubject, EmailParameters.WelcomeBody);
                     break;
                 case EmailType.Subscription:
-                    request.AddParameter("subject", EmailParameters.SubscriptionSubject);
-                    variables = new
-                    {
-                        name = input.Name,
-                        heading = EmailParameters.SubscriptionSubject,
-                        body = EmailParameters.SubscriptionBody
-                    };
-                    request.AddParameter("h:X-Mailgun-Variables", System.Text.Json.JsonSerializer.Serialize(variables));
+                    SetRequestParameters(request, input, EmailParameters.SubscriptionSubject, EmailParameters.SubscriptionBody);
                     break;
                 case EmailType.Purchase:
-                    request.AddParameter("subject", EmailParameters.PurchaseSubject);
-                    variables = new
-                    {
-                        name = input.Name,
-                        heading = EmailParameters.PurchaseSubject,
-                        body = EmailParameters.PurchaseBody.Replace("[Title]", input.BookTitle).Replace("[Author]", input.BookAuthor)
-                    };
-                    request.AddParameter("h:X-Mailgun-Variables", System.Text.Json.JsonSerializer.Serialize(variables));
+                    var body = EmailParameters.PurchaseBody.Replace("[Title]", input.BookTitle).Replace("[Author]", input.BookAuthor);
+                    SetRequestParameters(request, input, EmailParameters.PurchaseSubject, body);
                     break;
             }
+        }
+
+        private static void SetRequestParameters(RestRequest request, SendNotificationInput input, string subject, string body)
+        {
+            request.AddParameter("subject", subject);
+            var variables = new
+            {
+                name = input.Name,
+                heading = subject,
+                body
+            };
+            request.AddParameter("h:X-Mailgun-Variables", System.Text.Json.JsonSerializer.Serialize(variables));
         }
     }
 }
