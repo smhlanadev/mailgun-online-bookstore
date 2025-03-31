@@ -41,7 +41,7 @@ export class StoreComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.snackBar.open(result ? 'Purchase successful!' : 'Purchase cancelled', 'Close', { duration: 3000 });
+      this.snackBar.open(result ? 'Purchase successful!' : 'Purchase unsuccessful/cancelled', 'Close', { duration: 3000 });
     });
   }
 

@@ -4,4 +4,6 @@ export interface NotificationInput {
     emailTo: string;
     emailType: EmailType;
     name: string;
+    bookTitle?: string;
+    bookAuthor?: string;
 }

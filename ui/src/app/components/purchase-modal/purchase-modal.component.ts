@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificationService } from '../../services/notification.service';
 import { EmailType } from '../../models/email-type.enum';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 import { NotificationInput } from '../../models/notification-input.model';
 
@@ -20,7 +20,8 @@ export class PurchaseModalComponent {
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
     public dialogRef: MatDialogRef<PurchaseModalComponent>,
-    private userService: UserService
+    private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.purchaseForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -34,11 +35,20 @@ export class PurchaseModalComponent {
     const input: NotificationInput = {
       emailTo: this.userService.currentUser?.email || '',
       emailType: EmailType.Purchase,
-      name: this.userService.currentUser?.name || ''
+      name: this.userService.currentUser?.name || '',
+      bookTitle: this.data.book.title,
+      bookAuthor: this.data.book.author,
     };
     
-    this.notificationService.send(input);
-    this.dialogRef.close(true);
+    this.notificationService.send(input).subscribe({
+      next: () => {
+        this.dialogRef.close(true);
+      },
+      error: error => {
+        console.error('Error sending notification', error);
+        this.dialogRef.close(false);
+      }
+    });
   }
 
   onCancel() {

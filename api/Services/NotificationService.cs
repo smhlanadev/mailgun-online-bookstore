@@ -28,6 +28,7 @@ namespace API.Services
             };
             request.AddParameter("from", EmailParameters.FromAddress);
             request.AddParameter("to", $"{input.Name} <{input.EmailTo}>");
+            request.AddParameter("template", EmailParameters.Template);
             AddTemplateParameters(request, input);
             var result = await client.ExecuteAsync(request);
 
@@ -36,7 +37,7 @@ namespace API.Services
 
         private static void AddTemplateParameters(RestRequest request, SendNotificationInput input)
         {
-            switch(input.EmailType)
+            switch (input.EmailType)
             {
                 case EmailType.FirstTimeLogin:
                     break;
@@ -44,7 +45,6 @@ namespace API.Services
                     break;
                 case EmailType.Subscription:
                     request.AddParameter("subject", EmailParameters.SubscriptionSubject);
-                    request.AddParameter("template", EmailParameters.SubscriptionTemplate);
                     var variables = new
                     {
                         name = input.Name,
@@ -54,6 +54,14 @@ namespace API.Services
                     request.AddParameter("h:X-Mailgun-Variables", System.Text.Json.JsonSerializer.Serialize(variables));
                     break;
                 case EmailType.Purchase:
+                    request.AddParameter("subject", EmailParameters.PurchaseSubject);
+                    variables = new
+                    {
+                        name = input.Name,
+                        heading = EmailParameters.PurchaseSubject,
+                        body = EmailParameters.PurchaseBody.Replace("[Title]", input.BookTitle).Replace("[Author]", input.BookAuthor)
+                    };
+                    request.AddParameter("h:X-Mailgun-Variables", System.Text.Json.JsonSerializer.Serialize(variables));
                     break;
             }
         }
