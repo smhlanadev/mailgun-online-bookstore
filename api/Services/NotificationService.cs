@@ -39,16 +39,22 @@ namespace API.Services
         {
             switch (input.EmailType)
             {
-                case EmailType.FirstTimeLogin:
-                    break;
                 case EmailType.Registration:
-                    break;
-                case EmailType.Subscription:
                     request.AddParameter("subject", EmailParameters.SubscriptionSubject);
                     var variables = new
                     {
                         name = input.Name,
-                        heading = EmailParameters.SubscriptionHeading,
+                        heading = EmailParameters.WelcomeSubject,
+                        body = EmailParameters.WelcomeBody
+                    };
+                    request.AddParameter("h:X-Mailgun-Variables", System.Text.Json.JsonSerializer.Serialize(variables));
+                    break;
+                case EmailType.Subscription:
+                    request.AddParameter("subject", EmailParameters.SubscriptionSubject);
+                    variables = new
+                    {
+                        name = input.Name,
+                        heading = EmailParameters.SubscriptionSubject,
                         body = EmailParameters.SubscriptionBody
                     };
                     request.AddParameter("h:X-Mailgun-Variables", System.Text.Json.JsonSerializer.Serialize(variables));

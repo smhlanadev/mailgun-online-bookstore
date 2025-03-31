@@ -5,6 +5,7 @@ import { UserCredentials } from '../models/user-credentials.model';
 import { NotificationService } from './notification.service';
 import { EmailType } from '../models/email-type.enum';
 import { NotificationInput } from '../models/notification-input.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UserService {
   EmailType = EmailType;
   currentUser: User | undefined = undefined;
 
-  constructor(private notificationService: NotificationService) {
+  constructor(private notificationService: NotificationService, private snackBar: MatSnackBar,) {
     this.users = users;
     this.userCredentials = userCredentials;
   }
@@ -45,6 +46,11 @@ export class UserService {
       name: user.name
     };
 
-    this.notificationService.send(input);
+    this.notificationService.send(input).subscribe({
+      error: error => {
+        console.error('Error sending notification', error);
+        this.snackBar.open('Something went wrong. Try again later.', 'Close', { duration: 3000 });
+      }
+    });
   }
 }

@@ -3,7 +3,6 @@
     public enum EmailType
     {
         Registration,
-        FirstTimeLogin,
         Subscription,
         Purchase
     }
