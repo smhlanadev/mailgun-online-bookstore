@@ -39,9 +39,6 @@ namespace API.Services
         {
             switch (input.EmailType)
             {
-                case EmailType.Registration:
-                    SetRequestParameters(request, input, EmailParameters.WelcomeSubject, EmailParameters.WelcomeBody);
-                    break;
                 case EmailType.Subscription:
                     SetRequestParameters(request, input, EmailParameters.SubscriptionSubject, EmailParameters.SubscriptionBody);
                     break;
