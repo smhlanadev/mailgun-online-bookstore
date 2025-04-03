@@ -29,8 +29,8 @@ export class StoreComponent {
   onBuy(book: Book) {
     const dialogRef = this.dialog.open(PurchaseModalComponent, {
       width: '25rem',
-      minHeight: '28rem',
-      maxHeight: '34rem',
+      minHeight: '33rem',
+      maxHeight: '40rem',
       disableClose: true,
       data: { book }
     });

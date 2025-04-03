@@ -6,6 +6,12 @@
         <div *ngIf="purchaseForm.get('name')?.invalid && purchaseForm.get('name')?.touched" class="error">
             Name is required
         </div>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" formControlName="email" required>
+        <div *ngIf="purchaseForm.get('email')?.invalid && purchaseForm.get('email')?.touched" class="error">
+            Email address is required
+        </div>
     
         <label for="cardNumber">Card number:</label>
         <input type="text" id="cardNumber" formControlName="cardNumber" required>
