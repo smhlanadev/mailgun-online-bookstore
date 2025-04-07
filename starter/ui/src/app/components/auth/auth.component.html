@@ -1,0 +1,34 @@
+<div class="login-container">
+  <h2>{{ authMode === AuthMode.Login ? "Login" : "Register" }}</h2>
+
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="authMode === AuthMode.Register" class="form-control">
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name" required>
+      <div *ngIf="authForm.get('name')?.invalid && authForm.get('name')?.touched" class="error">
+        Name is required
+      </div>
+    </div>
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" formControlName="email" required>
+    <div *ngIf="authForm.get('email')?.invalid && authForm.get('email')?.touched" class="error">
+      Email is required
+    </div>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" formControlName="password" required>
+    <div *ngIf="authForm.get('password')?.invalid && authForm.get('password')?.touched" class="error">
+      Password is required
+    </div>
+    
+    <button type="submit" [disabled]="authForm.invalid">{{ authMode === AuthMode.Login ? "Login" : "Register" }}</button>
+  </form>
+
+  <div *ngIf="authMode === AuthMode.Login" class="auth-switch">
+    Don't have an account? <a href="#" (click)="switchAuthMode($event)">Click here to register</a>
+  </div>
+  <div *ngIf="authMode === AuthMode.Register" class="auth-switch">
+    Already have an account? <a href="#" (click)="switchAuthMode($event)">Click here to login</a>
+  </div>
+</div>

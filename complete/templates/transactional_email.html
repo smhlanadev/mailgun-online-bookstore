@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html style="font-family: Arial, sans-serif; font-size: 14px; margin: 0; background-color: #f6f6f6;">
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <meta charset="UTF-8" />
+  <title>Subscription Confirmation</title>
+  <style>
+    body {
+      background-color: #f6f6f6;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      border: 1px solid #e9e9e9;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .header {
+      background-color: #4f98c9;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .content {
+      padding: 20px;
+    }
+    .footer {
+      text-align: center;
+      color: #999;
+      font-size: 12px;
+      padding: 20px;
+    }
+    .footer a {
+      color: #999;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      {{heading}}
+    </div>
+    <div class="content">
+      <p>Hi {{name}},</p>
+      <p>{{body}}</p>
+      <p>The pickAbook Team</p>
+    </div>
+  </div>
+</body>
+</html>

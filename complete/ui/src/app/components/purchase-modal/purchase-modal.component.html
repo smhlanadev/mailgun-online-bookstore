@@ -1,0 +1,39 @@
+<div class="purchase-modal-container">
+    <h2>Enter Credit Card Details</h2>
+    <form [formGroup]="purchaseForm" (ngSubmit)="onSubmit()">
+        <label for="name">Account holder's name:</label>
+        <input type="text" id="name" formControlName="name" required>
+        <div *ngIf="purchaseForm.get('name')?.invalid && purchaseForm.get('name')?.touched" class="error">
+            Name is required
+        </div>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" formControlName="email" required>
+        <div *ngIf="purchaseForm.get('email')?.invalid && purchaseForm.get('email')?.touched" class="error">
+            Email address is required
+        </div>
+    
+        <label for="cardNumber">Card number:</label>
+        <input type="text" id="cardNumber" formControlName="cardNumber" required>
+        <div *ngIf="purchaseForm.get('cardNumber')?.invalid && purchaseForm.get('cardNumber')?.touched" class="error">
+            Card number is required
+        </div>
+    
+        <label for="cvv">CVV:</label>
+        <input type="cvv" id="cvv" formControlName="cvv" required>
+        <div *ngIf="purchaseForm.get('cvv')?.invalid && purchaseForm.get('cvv')?.touched" class="error">
+            CVV is required
+        </div>
+
+        <label for="expiryDate">Expiry date:</label>
+        <input type="expiryDate" id="expiryDate" formControlName="expiryDate" required>
+        <div *ngIf="purchaseForm.get('expiryDate')?.invalid && purchaseForm.get('expiryDate')?.touched" class="error">
+            Expiry date is required
+        </div>
+    
+        <div class="button-container">
+            <button type="submit" class="button-action" [disabled]="purchaseForm.invalid">Make payment</button>
+            <button type="button" class="button-cancel" (click)="onCancel()">Cancel</button>
+        </div>
+    </form>
+</div>

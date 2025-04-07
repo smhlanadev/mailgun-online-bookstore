@@ -1,0 +1,24 @@
+<div class="store-top-container">
+  <p>Welcome to <b>pickAbook</b>. Here you can browse and purchase books.</p>
+  <p>Love books? Stay updated with our weekly picks! <a href="#" class="subscribe-link" (click)="onSubscribe($event)">Subscribe Now</a>.</p>
+</div>
+
+<mat-grid-list cols="4" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let book of books">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title-group>
+            <mat-card-title>{{ book.title }}</mat-card-title>
+            <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+            <img mat-card-sm-image [src]="book.cover" alt="{{ book.title }} cover">
+            </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+            <p>ISBN: {{ book.isbn }}<span class="spacer"></span><span class="price">{{ book.price | currency }}</span></p>
+        </mat-card-content>
+        <mat-card-footer>
+            <button type="button" (click)="onBuy(book)">Buy</button>
+        </mat-card-footer>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
