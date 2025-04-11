@@ -1,5 +1,4 @@
-﻿using api.Models;
-using API.Models;
+﻿using API.Models;
 using RestSharp;
 using RestSharp.Authenticators;
 
