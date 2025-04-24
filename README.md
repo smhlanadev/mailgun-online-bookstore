@@ -1,5 +1,5 @@
 # mailgun-online-bookstore
-Send transactional emails using Maligun's API.
+**Send transactional emails using Maligun's API.**
 
 This repo contains a .NET API that uses Mailgun's API to send emails that are triggered by actions performed on the UI of an Angular frontend application. The frontend application is a simple online bookstore that displays a list of books that you can buy. It also provides a link to subscribe to a weekly newsletter. The buy and subscribe actions will be used to trigger email notifications.
 
