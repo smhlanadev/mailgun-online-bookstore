@@ -21,10 +21,7 @@ namespace API.Services
             };
 
             var client = new RestClient(options);
-            var request = new RestRequest("/sandbox12598a211a5548cbb3e9332eca6a3ce1.mailgun.org/messages", Method.Post)
-            {
-                AlwaysMultipartFormData = true
-            };
+            var request = new RestRequest("/sandbox12598a211a5548cbb3e9332eca6a3ce1.mailgun.org/messages", Method.Post);
             request.AddParameter("from", EmailParameters.FromAddress);
             request.AddParameter("to", $"{input.Name} <{input.EmailTo}>");
             request.AddParameter("template", EmailParameters.Template);
